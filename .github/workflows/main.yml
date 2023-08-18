@@ -27,4 +27,4 @@ jobs:
         env:
           PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PUBLISH_BRANCH: gh-pages
-          PUBLISH_DIR: cypress-execution-report
+          PUBLISH_DIR: cypress/reports/html
