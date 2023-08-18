@@ -1,0 +1,24 @@
+name: Automation Testing in Trello 
+on: push
+jobs:
+  test_Cypress_Typescript:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Recover the secret
+        run: |
+            echo '${{ secrets.ENVIROMENT_VARIABLES }}' > cypress.env.json
+      # Install npm dependencies, cache them correctly
+      # and run all Cypress tests
+      - name: Cypress run
+        uses: cypress-io/github-action@v5
+        with:
+          browser: chrome
+      - name: Uploading artifacts
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: cypress-execution-report
+          path: cypress/reports/html
+          retention-days: 5
