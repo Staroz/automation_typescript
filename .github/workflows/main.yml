@@ -26,4 +26,5 @@ jobs:
         if: always()
         env:
           PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PUBLISH_DIR: cypress/reports/
+          PUBLISH_BRANCH: gh-pages
+          PUBLISH_DIR: cypress-execution-report
