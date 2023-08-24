@@ -1,5 +1,5 @@
 /// <reference types="cypress" />
-import { contains } from "cypress/types/jquery";
+
 import url from "../e2e/utils/url";
 
 class Workspace {

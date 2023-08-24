@@ -9,12 +9,15 @@ Example of environment credentials:
 {
   "email": "example@email.com",
   "pw": "Password",
+  "userName": "userName",
+  "workspaceName": "Trello",
+  "boardName": "Trello 01",
+  "invalidEmail": "example@email.com",
+  "invalidPw": "Testing178657",
   "token": "",
   "key": "",
-  "invalidEmail": "example@email.com"",
-  "invalidPw": "invalid password",
-  "errorMessage": "Incorrect email address and / or password.", // you must copy this field
-  "userName": "username of Trello"
+  "listNameArray": ["Backlog", "In Progress", "Done"],
+  "cardsNameArray": ["Card 3", "Card 2", "Card 1"]
 
 }
 ```
