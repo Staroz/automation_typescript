@@ -1,6 +1,8 @@
 import { defineConfig } from 'cypress'
 
 export default defineConfig({
+  viewportWidth: 1600,
+  viewportHeight: 760,
   reporter: 'cypress-mochawesome-reporter',
   reporterOptions: {
     charts: true,
