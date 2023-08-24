@@ -22,3 +22,9 @@ jobs:
           name: cypress-execution-report
           path: cypress/reports/html
           retention-days: 5
+      - uses: peaceiris/actions-gh-pages@v2
+        if: always()
+        env:
+          PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PUBLISH_BRANCH: gh-pages
+          PUBLISH_DIR: cypress/reports/html
