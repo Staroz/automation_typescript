@@ -64,7 +64,19 @@ declare global {
           createCardAPI(key: string, token: string, cardsNameArray:string[]): Cypress.Chainable<ApiResponseBody>
         }
       }
+
+      namespace Cypress {
+        interface Chainable {
+          /**
+           * Custom command to select DOM element by data-cy attribute.
+           * @example 'searchGoogle', (topic)
+           */
+          searchGoogle(topic:string): Cypress.Chainable<ApiResponseBody>
+        }
+      }
   }
+  
+
 
 Cypress.Commands.add('createWorkspaceAPI', ( workspaceName, key, token) => {
     return cy.api('POST', `${url.api}/organizations/?displayName=${workspaceName}&key=${key}&token=${token}`).
@@ -130,4 +142,6 @@ Cypress.Commands.add('createWorkspaceAPI', ( workspaceName, key, token) => {
             }
 });
 
-
+Cypress.Commands.add('searchGoogle', (topic) => {
+  cy.get('textarea[name="q"]').type(topic + '{enter}');
+})
