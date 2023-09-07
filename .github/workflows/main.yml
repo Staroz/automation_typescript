@@ -11,6 +11,8 @@ jobs:
             echo '${{ secrets.ENVIROMENT_VARIABLES }}' > cypress.env.json
       # Install npm dependencies, cache them correctly
       # and run all Cypress tests
+      - name: Install dependencies 📦
+        run: npm ci --legacy-peer-deps
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
