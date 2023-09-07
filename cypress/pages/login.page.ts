@@ -15,7 +15,6 @@ class Login {
         // assertion locators
         errorMessage : ()=>  cy.get('.error-message'),
         errorMessageAtlassian: ()=> cy.get('[data-testid="form-error--content"]'),
-
     };
 
     enterEmail(username:string){
