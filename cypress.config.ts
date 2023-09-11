@@ -2,6 +2,7 @@ import { defineConfig } from 'cypress'
 
 export default defineConfig({
   defaultCommandTimeout: 6000,
+  pageLoadTimeout: 10000,
   viewportWidth: 1600,
   viewportHeight: 760,
   reporter: 'cypress-mochawesome-reporter',

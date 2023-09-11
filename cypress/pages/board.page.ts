@@ -16,10 +16,10 @@ class BoardPage {
     }
 
     DragAndDrop(firstListName:string, secondListName:string) {
-        this.page.boardBtn().should('be.visible')
+        this.page.boardBtn().should('be.visible');
         this.page.listIcon(firstListName).as('list1');
-        this.page.listBlock(secondListName).as('list2');
-        cy.get('@list1').drag('@list2');
+        this.page.listIcon(secondListName).as('list2');
+        cy.get('@list1').drag('@list2',{ target:{x:150, y:50}});
     }
 }
 

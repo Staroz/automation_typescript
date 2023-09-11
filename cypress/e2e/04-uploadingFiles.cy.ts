@@ -29,7 +29,7 @@ describe('Uploading a file in a card', () => {
         cy.createListsAPI(variables.key, variables.token, variables.listNameArray);
         cy.createCardAPI(variables.key, variables.token, variables.cardsNameArray)
     })
-    it('Create a Workspace', () => {
+    it('Upload a image', () => {
         cy.visit(url.userPage);
         userPage.clickBoard(variables.boardName);
         boardPage.clickCard(variables.cardsNameArray[0])
