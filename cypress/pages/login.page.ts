@@ -18,6 +18,7 @@ class Login {
     };
 
     enterEmail(username:string){
+        this.page.homeLoginBtn().should('be.visible');
         this.page.homeLoginBtn().click();
         this.page.emailInput().type(username);
         this.page.continueBtn().click();

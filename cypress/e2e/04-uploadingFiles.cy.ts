@@ -25,19 +25,19 @@ after(()=>{
 describe('Uploading a file in a card', () => {
     before(()=>{
         // create cards with API
-        cy.createBoardAPI( variables.workspaceName, variables.boardName, variables.key, variables.token);
-        cy.createListsAPI(variables.key, variables.token, variables.listNameArray);
-        cy.createCardAPI(variables.key, variables.token, variables.cardsNameArray)
+        cy.createBoardAPI(variables.workspaceName, variables.boardName);
+        cy.createListsAPI(variables.listNameArray);
+        cy.createCardAPI(variables.cardsNameArray)
     })
     it('Upload a image', () => {
         cy.visit(url.userPage);
         userPage.clickBoard(variables.boardName);
         boardPage.clickCard(variables.cardsNameArray[0])
-        cards.uploadFile( files.photo);
+        cards.uploadFile(files.photo);
         cards.page.attachmentNameLink().should('contain.text', files.photoName)
     });
     afterEach(()=>{
         // delete workspace with API
-        cy.deleteBoardAPI(variables.key,variables.token)
+        cy.deleteBoardAPI();
     })
 })

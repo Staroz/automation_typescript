@@ -23,19 +23,19 @@ after(()=>{
 
 describe('Move a list to another Position', () => {
     beforeEach(()=>{
-        cy.createBoardAPI(variables.workspaceName, variables.boardName, variables.key, variables.token);
-        cy.createListsAPI(variables.key, variables.token, variables.listNameArray)
+        cy.createBoardAPI(variables.workspaceName, variables.boardName);
+        cy.createListsAPI(variables.listNameArray)
     })
     it('Move a list' , () => {
         cy.visit(url.userPage);
         userPage.clickBoard(variables.boardName);
         boardPage.DragAndDrop(variables.listNameArray[0], variables.listNameArray[2])
-        cy.get('div.list.js-list-content').eq(variables.listNameArray.indexOf( variables.listNameArray[2]))
+        boardPage.page.listIcon().eq(variables.listNameArray.indexOf( variables.listNameArray[2]))
             .should('contain', variables.listNameArray[0])
     });
 
     afterEach(()=>{
         // delete workspace with API
-        cy.deleteBoardAPI(variables.key,variables.token)
+        cy.deleteBoardAPI();
     })
 });
