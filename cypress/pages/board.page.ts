@@ -7,6 +7,8 @@ class BoardPage {
         listDroppable:(value:string) => cy.get('div#board.u-fancy-scrollbar.js-no-higher-edits.js-list-sortable.ui-sortable')
                                             .contains('.list.js-list-content', value),
         boardBtn:() => cy.get('[data-testid="view-switcher-button-text"]'),
+        menuBoardBtn: () => cy.get('[aria-label="Show menu"]'),
+        optionMenuBtn: (value) => cy.contains('a.board-menu-navigation-item', value),
         // Delete a workspace
         workspaceSection: (value:string) => cy.contains('.boards-page-board-section-header', value),
         // assertions        
@@ -21,6 +23,12 @@ class BoardPage {
         this.page.listIcon().and('contain.text', firstListName).as('draggable');
         this.page.listDroppable(secondListName).as('droppable');
         cy.get('@draggable').drag('@droppable', {target: {x:200, y:50}});
+    }
+
+    changeBackground(fileName: string) {
+        this.page.menuBoardBtn().click();
+        this.page.optionMenuBtn('Change background').click();
+        
     }
 }
 
