@@ -5,6 +5,7 @@ import { userPage } from "../pages/user.page";
 import { boardPage } from "../pages/board.page";
 import { variables } from "./utils/variables";
 import url from "./utils/url";
+import files from "./utils/files";
 
 before(()=>{
     // authentication in Trello
@@ -28,13 +29,12 @@ describe('Change background of Board', () => {
     it('change background' , () => {
         cy.visit(url.userPage);
         userPage.clickBoard(variables.boardName);
-        boardPage.DragAndDrop(variables.listNameArray[0], variables.listNameArray[2])
-        boardPage.page.listIcon().eq(variables.listNameArray.indexOf( variables.listNameArray[2]))
-            .should('contain', variables.listNameArray[0])
+        boardPage.changeBackground(files.background);
+        boardPage.page.backgroundIcon().eq(1).should('have.attr', 'style').and('include', files.backgroundName)
     });
 
-    // afterEach(()=>{
-    //     // delete workspace with API
-    //     cy.deleteBoardAPI();
-    // })
+    afterEach(()=>{
+        // delete workspace with API
+        cy.deleteBoardAPI();
+    })
 });

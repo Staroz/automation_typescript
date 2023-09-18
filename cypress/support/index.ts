@@ -98,12 +98,11 @@ Cypress.Commands.add('createWorkspaceAPI', ( workspaceName) => {
   });
 
   Cypress.Commands.add('deleteBoardAPI', ( ) => {
-    console.log('112221', boardId);
     return cy.api('DELETE', 
                 `${url.api}/boards/${boardId}?key=${key}&token=${token}`).
                 then((response)=> {
                     expect(response.status).to.eq(200);
-                    cy.deleteWorkspaceAPI( );
+                    cy.deleteWorkspaceAPI();
                     })
   });
 

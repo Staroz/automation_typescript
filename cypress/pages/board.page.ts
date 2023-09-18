@@ -8,10 +8,12 @@ class BoardPage {
                                             .contains('.list.js-list-content', value),
         boardBtn:() => cy.get('[data-testid="view-switcher-button-text"]'),
         menuBoardBtn: () => cy.get('[aria-label="Show menu"]'),
-        optionMenuBtn: (value) => cy.contains('a.board-menu-navigation-item', value),
+        optionMenuBtn: (value:string) => cy.contains('.board-menu-navigation-item', value),
+        addBackground: ()=> cy.get('input.upload-background'),
         // Delete a workspace
         workspaceSection: (value:string) => cy.contains('.boards-page-board-section-header', value),
-        // assertions        
+        // assertions 
+        backgroundIcon: ()=> cy.get('.background-box'),
     }
 
     clickCard(cardName:string){
@@ -26,9 +28,11 @@ class BoardPage {
     }
 
     changeBackground(fileName: string) {
-        this.page.menuBoardBtn().click();
+        // this.page.menuBoardBtn().should('be.visible');
+        this.page.menuBoardBtn().click()
         this.page.optionMenuBtn('Change background').click();
-        
+        this.page.addBackground().selectFile(fileName);
+        this.page.backgroundIcon().eq(1).should('be.visible');
     }
 }
 
