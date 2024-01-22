@@ -1,10 +1,9 @@
 /// <reference types="cypress" />
-import { login } from "../pages/login.page";
-import { cards } from "../pages/cards.page";
+
+import { login } from "../pages/login.page"
 import { userPage } from "../pages/user.page";
 import { boardPage } from "../pages/board.page";
 import { variables } from "./utils/variables";
-import files from "./utils/files";
 import url from "./utils/url";
 
 before(()=>{
@@ -22,22 +21,21 @@ after(()=>{
     cy.url().should('eq', url.home)
 })
 
-describe('Uploading a file in a card', () => {
-    before(()=>{
-        // create cards with API
+describe('Move a list to another Position', () => {
+    beforeEach(()=>{
         cy.createBoardAPI(variables.workspaceName, variables.boardName);
-        cy.createListsAPI(variables.listNameArray);
-        cy.createCardAPI(variables.cardsNameArray)
+        cy.createListsAPI(variables.listNameArray)
     })
-    it('Upload a image', () => {
+    it('Move a list' , () => {
         cy.visit(url.userPage);
         userPage.clickBoard(variables.boardName);
-        boardPage.clickCard(variables.cardsNameArray[0])
-        cards.uploadFile(files.photo);
-        cards.page.attachmentNameLink().should('contain.text', files.photoName)
+        boardPage.DragAndDrop(variables.listNameArray[0], variables.listNameArray[2])
+        boardPage.page.listIcon().eq(variables.listNameArray.indexOf( variables.listNameArray[2]))
+            .should('contain', variables.listNameArray[0])
     });
+
     afterEach(()=>{
         // delete workspace with API
         cy.deleteBoardAPI();
     })
-})
+});

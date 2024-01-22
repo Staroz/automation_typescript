@@ -1,7 +1,10 @@
 import { ApiResponseBody } from "cypress-plugin-api"
 import url from "../e2e/utils/url";
+import { variables } from "../e2e/utils/variables";
 
 let workspaceId:string, boardId:string, listId: string;
+const key = variables.key;
+const token = variables.token;
 
 
 export {}
@@ -10,18 +13,18 @@ declare global {
       interface Chainable {
         /**
          * Custom command to select DOM element by data-cy attribute.
-         * @example createWorkspaceAPI(workspaceName: string, key: string, token: string)
+         * @example createWorkspaceAPI(workspaceName: string)
          */
-        createWorkspaceAPI(workspaceName: string, key: string, token: string): Cypress.Chainable<ApiResponseBody>
+        createWorkspaceAPI(workspaceName: string): Cypress.Chainable<ApiResponseBody>
       }
     }
     namespace Cypress {
         interface Chainable {
           /**
            * Custom command to select DOM element by data-cy attribute.
-           * @example deleteWorkspaceAPI(, key: string, token: string)
+           * @example deleteWorkspaceAPI()
            */
-          deleteWorkspaceAPI(key: string, token: string): Cypress.Chainable<ApiResponseBody>
+          deleteWorkspaceAPI(): Cypress.Chainable<ApiResponseBody>
         }
       }
 
@@ -29,9 +32,9 @@ declare global {
         interface Chainable {
           /**
            * Custom command to select DOM element by data-cy attribute.
-           * @example createBoardAPI(workspaceName: string, boardName: string, key: string, token: string)
+           * @example createBoardAPI(workspaceName: string, boardName: string)
            */
-          createBoardAPI(workspaceName: string, boardName: string, key: string, token: string): Cypress.Chainable<ApiResponseBody>
+          createBoardAPI(workspaceName: string, boardName: string): Cypress.Chainable<ApiResponseBody>
         }
       }
 
@@ -39,9 +42,9 @@ declare global {
         interface Chainable {
           /**
            * Custom command to select DOM element by data-cy attribute.
-           * @example deleteBoardAPI(key: string, token: string)
+           * @example deleteBoardAP)
            */
-          deleteBoardAPI(key: string, token: string): Cypress.Chainable<ApiResponseBody>
+          deleteBoardAPI(): Cypress.Chainable<ApiResponseBody>
         }
       }
 
@@ -49,9 +52,9 @@ declare global {
         interface Chainable {
           /**
            * Custom command to select DOM element by data-cy attribute.
-           * @example createListsAPI(key: string, token: string, listNameArray:string[])
+           * @example createListsAP, listNameArray:string[])
            */
-          createListsAPI(key: string, token: string, listNameArray:string[]): Cypress.Chainable<ApiResponseBody>
+          createListsAPI(listNameArray:string[]): Cypress.Chainable<ApiResponseBody>
         }
       }
 
@@ -59,14 +62,14 @@ declare global {
         interface Chainable {
           /**
            * Custom command to select DOM element by data-cy attribute.
-           * @example createCardAPI(key: string, token: string, cardsNameArray:string[])
+           * @example createCardAP, cardsNameArray:string[])
            */
-          createCardAPI(key: string, token: string, cardsNameArray:string[]): Cypress.Chainable<ApiResponseBody>
+          createCardAPI (cardsNameArray:string[]): Cypress.Chainable<ApiResponseBody>
         }
       }
   }
 
-Cypress.Commands.add('createWorkspaceAPI', ( workspaceName, key, token) => {
+Cypress.Commands.add('createWorkspaceAPI', ( workspaceName) => {
     return cy.api('POST', `${url.api}/organizations/?displayName=${workspaceName}&key=${key}&token=${token}`).
             then((response)=> {
                 expect(response.status).to.eq(200);
@@ -75,15 +78,15 @@ Cypress.Commands.add('createWorkspaceAPI', ( workspaceName, key, token) => {
                 })
   });
 
-  Cypress.Commands.add('deleteWorkspaceAPI', ( key, token) => {
+  Cypress.Commands.add('deleteWorkspaceAPI', () => {
     return cy.api('DELETE', `${url.api}/organizations/${workspaceId}?&key=${key}&token=${token}`).
             then((response)=> {
                 expect(response.status).to.eq(200);
                 })
   })
 
-  Cypress.Commands.add('createBoardAPI', ( workspaceName, boardName, key, token) => {
-    cy.createWorkspaceAPI( workspaceName, key, token);
+  Cypress.Commands.add('createBoardAPI', ( workspaceName, boardName, ) => {
+    cy.createWorkspaceAPI( workspaceName, );
     return cy.api('POST', 
                 `${url.api}/boards/?name=${boardName}&key=${key}&token=${token}`, 
                 {defaultLists: false}).
@@ -94,19 +97,17 @@ Cypress.Commands.add('createWorkspaceAPI', ( workspaceName, key, token) => {
                     })
   });
 
-  Cypress.Commands.add('deleteBoardAPI', ( key, token) => {
+  Cypress.Commands.add('deleteBoardAPI', ( ) => {
     console.log('112221', boardId);
     return cy.api('DELETE', 
                 `${url.api}/boards/${boardId}?key=${key}&token=${token}`).
                 then((response)=> {
                     expect(response.status).to.eq(200);
-
-                    cy.deleteWorkspaceAPI( key, token);
+                    cy.deleteWorkspaceAPI( );
                     })
   });
 
-  Cypress.Commands.add('createListsAPI', (key, token, listNameArray ) => {
-
+  Cypress.Commands.add('createListsAPI', ( listNameArray ) => {
     for (let index = listNameArray.length - 1; index > -1; index--) {
       cy.api(
             'POST',
@@ -119,7 +120,7 @@ Cypress.Commands.add('createWorkspaceAPI', ( workspaceName, key, token) => {
             }
   });
 
-  Cypress.Commands.add('createCardAPI', (key, token, cardsNameArray ) => {
+  Cypress.Commands.add('createCardAPI', ( cardsNameArray ) => {
     for (let index = cardsNameArray.length - 1; index > -1; index--) {
         cy.api(
             'POST',

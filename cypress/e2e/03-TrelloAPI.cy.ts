@@ -1,55 +1,48 @@
 /// <reference types="cypress" />
-
-const key = Cypress.env('key');
-const token = Cypress.env('token');
-const workspaceName = Cypress.env('workspaceName');
-const boardName = Cypress.env('workspaceName');
-const listNameArray = Cypress.env('listNameArray');
-const cardsNameArray = Cypress.env('cardsNameArray');
-
+import { variables } from "./utils/variables";
 
 describe('handling API of Trello', () => {
     describe('Workspaces', ()=> {
         it('Create  and delete a workspace', () => {
-            cy.createWorkspaceAPI( workspaceName, key, token)
+            cy.createWorkspaceAPI(variables.workspaceName)
         });
 
         afterEach(()=>{
-            cy.deleteWorkspaceAPI(key,token)
+            cy.deleteWorkspaceAPI()
         });
     })
 
     describe('Boards', ()=> {
         it('Create  and delete a Board', () => {
-            cy.createBoardAPI( workspaceName, boardName, key, token)
+            cy.createBoardAPI(variables.workspaceName, variables.boardName)
         });
 
         afterEach(()=>{
-            cy.deleteBoardAPI(key,token)
+            cy.deleteBoardAPI()
         });
     });
 
     
     describe('Lists', ()=> {
         it('Create  and delete a Lists', () => {
-            cy.createBoardAPI( workspaceName, boardName, key, token)
-            cy.createListsAPI(key, token, listNameArray)
+            cy.createBoardAPI(variables.workspaceName, variables.boardName);
+            cy.createListsAPI(variables.listNameArray);
         });
 
         afterEach(()=>{
-            cy.deleteBoardAPI(key,token)
+            cy.deleteBoardAPI();
         });
     });
 
     describe('Cards', ()=> {
         it('Create  and delete Cards', () => {
-            cy.createBoardAPI( workspaceName, boardName, key, token);
-            cy.createListsAPI(key, token, listNameArray);
-            cy.createCardAPI(key, token, cardsNameArray)
+            cy.createBoardAPI( variables.workspaceName, variables.boardName);
+            cy.createListsAPI(variables.listNameArray);
+            cy.createCardAPI(variables.cardsNameArray)
         });
 
         afterEach(()=>{
-            cy.deleteBoardAPI(key,token)
+            cy.deleteBoardAPI()
         });
     });
 });

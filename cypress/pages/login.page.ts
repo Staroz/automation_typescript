@@ -15,10 +15,10 @@ class Login {
         // assertion locators
         errorMessage : ()=>  cy.get('.error-message'),
         errorMessageAtlassian: ()=> cy.get('[data-testid="form-error--content"]'),
-
     };
 
     enterEmail(username:string){
+        this.page.homeLoginBtn().should('be.visible');
         this.page.homeLoginBtn().click();
         this.page.emailInput().type(username);
         this.page.continueBtn().click();
